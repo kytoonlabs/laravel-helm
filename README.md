@@ -174,7 +174,8 @@ $helm = Helm::install(
 );
 $helm->run();
 // the command parsed will be:
-// helm install myredis oci://registry-1.docker.io/bitnamicharts/redis --version=1.0.0 --create-namespace --set app.host=https://10.0.0.1 -n default -A --dry-run
+// helm install myredis oci://registry-1.docker.io/bitnamicharts/redis --version=1.0.0 
+//   --create-namespace --set app.host=https://10.0.0.1 -n default -A --dry-run
 ...
 ```
 
