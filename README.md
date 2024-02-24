@@ -2,6 +2,8 @@
 
 [![GitHub License](https://img.shields.io/github/license/kytoonlabs/laravel-helm)](https://github.com/kytoonlabs/laravel-helm/blob/main/LICENSE)
 ![Codecov](https://img.shields.io/codecov/c/github/kytoonlabs/laravel-helm)
+![Packagist Version](https://img.shields.io/packagist/v/kytoonlabs/laravel-helm)
+
 
 
 This package provides a wrapper to invoke HELM commands using PHP code.
