@@ -11,6 +11,9 @@ use Illuminate\Support\Str;
  */
 class HelmTest extends TestCase
 {
+    /**
+     * Test Helm version function
+     */
     public function testHelmVersion() : void
     {
         $version = Helm::version();
@@ -19,6 +22,9 @@ class HelmTest extends TestCase
         $this->assertStringContainsString('v3.', $version->getOutput());
     }
 
+    /**
+     * Test Helm install function
+     */
     public function testHelmInstall() : void
     {
         $helm = Helm::install(
@@ -33,6 +39,9 @@ class HelmTest extends TestCase
         $this->assertStringContainsString('STATUS: deployed', $helm->getOutput());
     }
 
+    /**
+     * Test Helm upgrade function
+     */
     public function testHelmUpgrade() : void
     {
         $helmName = 'testrelease-'.Str::lower(Str::random(8));
@@ -60,6 +69,9 @@ class HelmTest extends TestCase
         $this->assertStringContainsString('STATUS: deployed', $helm->getOutput());
     }
 
+    /**
+     * Test Helm delete function
+     */
     public function testHelmDelete() : void
     {
         $helm = Helm::delete('testrelease-'.Str::lower(Str::random(8)));
@@ -84,6 +96,9 @@ class HelmTest extends TestCase
         $this->assertStringContainsString('release "'.$releaseName.'" uninstalled', $delete->getOutput());
     }
 
+    /**
+     * Test Helm execute function
+     */
     public function testParseEnvironments() : void
     {
         $envs = [

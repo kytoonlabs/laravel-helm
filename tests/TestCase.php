@@ -33,6 +33,6 @@ abstract class TestCase extends Orchestra
      */
     public function getEnvironmentSetUp($app)
     {
-        $app['config']->set('app.key', 'wslxrEFGWY6GfGhvN9L3wH3KSRJQQpBD');
+        $app['config']->set('app.key', 'base64:HOVyp2eleaERiaEX8rn9Dx/ixIxP6rqeLuQJ526JOc0=');
     }
 }

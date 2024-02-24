@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Kytoonlabs\LaravelHelm;
 
@@ -6,6 +6,9 @@ use Illuminate\Support\ServiceProvider;
 
 class HelmServiceProvider extends ServiceProvider
 {
+    /**
+     * Bootstrap the application services.
+     */
     public function boot()
     {
         $this->publishes([
@@ -13,6 +16,9 @@ class HelmServiceProvider extends ServiceProvider
         ], 'config');
     }
 
+    /**
+     * Register the application services.
+     */
     public function register()
     {
         $this->mergeConfigFrom(__DIR__.'/../config/helm.php', 'helm');
