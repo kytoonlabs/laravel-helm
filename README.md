@@ -1,19 +1,16 @@
 # Laravel Helm Package
 
-![GitHub License](https://img.shields.io/github/license/kytoonlabs/laravel-helm)
+[![GitHub License](https://img.shields.io/github/license/kytoonlabs/laravel-helm)](https://github.com/kytoonlabs/laravel-helm/blob/main/LICENSE)
 
 This package provides a wrapper to be invoke HELM commands using PHP code.
 
 ## Installing
 
-Installing can be done through a variety of methods, although Composer is
-recommended.
+Installing can be done through a variety of methods, although Composer is recommended.
 
-### Composer
+### Composer (recommended)
 
-Until Laravel Helm reaches a stable API with version 1.0 it is recommended that you
-review changes before Minor updates, although bug fixes will always be
-backwards compatible.
+Include the following snipped into the *composer.json* file.
 
 ```js
 "require": {
@@ -30,3 +27,4 @@ composer require kytoonlabs/laravel-helm
 ### Github
 
 Releases of Stash are available on [Github](https://github.com/kytoonlabs/laravel-helm/releases).
+
