@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 
 /**
  * @covers Kytoonlabs\LaravelHelm\Helm
+ * @covers Kytoonlabs\LaravelHelm\HelmServiceProvider
  */
 class HelmTest extends TestCase
 {
