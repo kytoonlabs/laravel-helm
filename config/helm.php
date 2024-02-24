@@ -10,5 +10,5 @@ return [
     |
     */
 
-    'path' => env('HELM_PATH', '/usr/local/bin/helm'),
+    'path' => env('HELM_BINARY_PATH', '/usr/local/bin/helm'),
 ];
