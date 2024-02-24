@@ -83,4 +83,24 @@ class HelmTest extends TestCase
         $this->assertTrue($delete->isSuccessful());
         $this->assertStringContainsString('release "'.$releaseName.'" uninstalled', $delete->getOutput());
     }
+
+    public function testParseEnvironments() : void
+    {
+        $envs = [
+            'KUBECONFIG' => '/path/to/kubeconfig',
+            'NAMESPACE' => 'default'
+        ];
+        $helm = Helm::delete('abc', [], $envs);
+        $processEnvs = $helm->getEnv();
+        $this->assertEquals($envs, $processEnvs);
+
+        $badEnvs = [
+            'KUBECONFIG' => '/path/to/kubeconfig',
+            'NAMESPACE' => 'default',
+            'BAD_ENVIRONMENT'
+        ];
+        $helm = Helm::delete('abc', [], $badEnvs);
+        $processEnvs = $helm->getEnv();
+        $this->assertEquals($envs, $processEnvs);
+    }
 }

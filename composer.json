@@ -19,6 +19,11 @@
             "Kytoonlabs\\LaravelHelm\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Kytoonlabs\\LaravelHelm\\Tests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "Enrique Ponce de Leon",
@@ -37,10 +42,5 @@
     },
     "config": {
         "sort-packages": true
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Kytoonlabs\\LaravelHelm\\Tests\\": "tests/"
-        }
     }
 }

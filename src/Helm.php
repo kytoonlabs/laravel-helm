@@ -63,8 +63,14 @@ class Helm {
 
     protected function parseEnvironments(array $options) : array
     {
-        $parsed = [];
-        return $parsed;
+        $envs = [];
+        foreach ($options as $name => $value){
+            if (is_int($name)) {
+                continue;
+            }
+            $envs[$name] = $value;
+        }
+        return $envs;
     }
 
     public function __call(string $method, array $params)
