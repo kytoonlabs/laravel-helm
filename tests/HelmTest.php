@@ -97,7 +97,58 @@ class HelmTest extends TestCase
     }
 
     /**
-     * Test Helm execute function
+     * Test Helm rawCommand function
+     */
+    public function testHelmRawCommand() : void
+    {
+        $helm = Helm::rawCommand('list');
+        $helm->run();
+        $this->assertTrue($helm->isSuccessful());
+
+        $helm = Helm::rawCommand('list --all');
+        $helm->run();
+        $this->assertTrue($helm->isSuccessful());
+
+        $helm = Helm::rawCommand('list --output json');
+        $helm->run();
+        $this->assertTrue($helm->isSuccessful());
+        $this->assertIsArray(json_decode($helm->getOutput(), true));
+
+        $helm = Helm::rawCommand('list --output json',['--all']);
+        $helm->run();
+        $this->assertTrue($helm->isSuccessful());
+        $this->assertIsArray(json_decode($helm->getOutput(), true));
+    }
+
+    /**
+     * Test Parse Options function
+     */
+    public function testParseOptions() : void
+    {
+        $options = [
+            '--version' => '18.16.1',
+            '--install',
+            'wait',
+            '-n' => 'default',
+            '-o',
+            'app.url' => 'http://localhost'
+        ];
+        $parsed = [
+            '--version=18.16.1',
+            '--install',
+            '--wait',
+            '-n default',
+            '-o',
+            '--set app.url=http://localhost'
+        ];
+        $helm = Helm::delete('abc', $options);
+        $commandLineArray = $this->parseCommandLine($helm->getCommandLine());
+
+        $this->assertTrue(count(array_intersect($parsed,$commandLineArray)) === count($parsed));
+    }
+
+    /**
+     * Test Parse Environments function
      */
     public function testParseEnvironments() : void
     {
@@ -117,5 +168,16 @@ class HelmTest extends TestCase
         $helm = Helm::delete('abc', [], $badEnvs);
         $processEnvs = $helm->getEnv();
         $this->assertEquals($envs, $processEnvs);
+    }
+
+    /**
+     * Parse the command line
+     */
+    private function parseCommandLine($commandLine): array
+    {
+        $args = explode("' '", $commandLine);
+        return array_map(function($arg) {
+            return Str::replace("'", "", $arg);
+        }, $args);
     }
 }

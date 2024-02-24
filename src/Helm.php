@@ -9,7 +9,7 @@ class Helm {
     /**
      * The path to the HELM binary
      */
-    protected static $binary_path = env('HELM_BINARY_PATH', '/usr/local/bin/helm');
+    protected static $binary_path = '/usr/local/bin/helm';
 
     /**
      * The Symfony Process instance
@@ -21,7 +21,7 @@ class Helm {
      */
     public function __construct(string $action, array $parameters = [], array $options = [], array $environments = [])
     {
-        $command = array_merge([static::$binary_path, $action], $parameters, $this->parseOptions($options));
+        $command = array_filter(array_merge([static::$binary_path, $action], $parameters, $this->parseOptions($options)));
         $this->process = new Process($command, null, $this->parseEnvironments($environments));
     }
 
@@ -58,6 +58,17 @@ class Helm {
     }
 
     /**
+     * Run any HELM command
+     */
+    public static function rawCommand(string $command, array $options = [], array $environments = []) : Helm
+    {
+        $args = explode(' ', $command);
+        $helmCommand = sizeof($args) === 1 ? $args[0] : '';
+        $helmOptions = sizeof($args) === 1 ? [] : $args;
+        return static::execute($helmCommand, $helmOptions, $options, $environments);
+    }
+
+    /**
      * Execute the HELM command
      */
     public static function execute(string $action, array $parameters = [], array $options = [], array $environments = []) : Helm
@@ -81,9 +92,13 @@ class Helm {
         $flags = [];
         foreach ($options as $name => $value){
             if (is_int($name)){
-                $flags[] = Str::startsWith($value, '--') ? $value : '--' . $value;
+                $flags[] = Str::startsWith($value, '--') || Str::startsWith($value, '-') ? $value : '--' . $value;
+            } elseif (Str::startsWith($name, '--')) {
+                $flags[] = $name . '=' . $value;
+            } elseif (Str::startsWith($name, '-')) {
+                $flags[] = $name . ' ' . $value;
             } else {
-                $flags[] = Str::startsWith($name, '--') ? $name . '=' . $value : '--set '.$name . '=' . $value;
+                $flags[] = '--set '.$name . '=' . $value;
             }
         }
         return $flags;

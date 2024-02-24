@@ -14,6 +14,8 @@ class HelmServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../config/helm.php' => config_path('helm.php'),
         ], 'config');
+
+        Helm::setPath(config('helm.path', '/usr/local/bin/helm'));
     }
 
     /**
