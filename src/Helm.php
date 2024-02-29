@@ -93,12 +93,12 @@ class Helm {
         foreach ($options as $name => $value){
             if (is_int($name)){
                 $flags[] = Str::startsWith($value, '--') || Str::startsWith($value, '-') ? $value : '--' . $value;
-            } elseif (Str::startsWith($name, '--')) {
-                $flags[] = $name . '=' . $value;
-            } elseif (Str::startsWith($name, '-')) {
-                $flags[] = $name . ' ' . $value;
+            } elseif (Str::startsWith($name, '--')||Str::startsWith($name, '-')) {
+                $flags[] = $name;
+                $flags[] = $value;
             } else {
-                $flags[] = '--set '.$name . '=' . $value;
+                $flags[] = '--set';
+                $flags[] = $name . '=' . $value;
             }
         }
         return $flags;

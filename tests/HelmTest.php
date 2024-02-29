@@ -32,7 +32,8 @@ class HelmTest extends TestCase
             'testrelease-'.Str::lower(Str::random(8)),
             'oci://registry-1.docker.io/bitnamicharts/redis',
             [
-                '--version' => '18.16.1'
+                '--version' => '18.16.1',
+                'image.pullPolicy' => 'Always'
             ]
         );
         $helm->run();
@@ -135,12 +136,15 @@ class HelmTest extends TestCase
             'app.url' => 'http://localhost'
         ];
         $parsed = [
-            '--version=18.16.1',
+            '--version',
+            '18.16.1',
             '--install',
             '--wait',
-            '-n default',
+            '-n',
+            'default',
             '-o',
-            '--set app.url=http://localhost'
+            '--set',
+            'app.url=http://localhost'
         ];
         $helm = Helm::delete('abc', $options);
         $commandLineArray = $this->parseCommandLine($helm->getCommandLine());
@@ -176,7 +180,7 @@ class HelmTest extends TestCase
      */
     private function parseCommandLine($commandLine): array
     {
-        $args = explode("' '", $commandLine);
+        $args = explode(' ', $commandLine);
         return array_map(function($arg) {
             return Str::replace("'", "", $arg);
         }, $args);
