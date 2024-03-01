@@ -23,6 +23,7 @@ class Helm {
     {
         $command = array_filter(array_merge([static::$binary_path, $action], $parameters, $this->parseOptions($options)));
         $this->process = new Process($command, null, $this->parseEnvironments($environments));
+        $this->process->setTimeout(config('helm.process_timeout'));
     }
 
     /**

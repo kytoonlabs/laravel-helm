@@ -11,4 +11,5 @@ return [
     */
 
     'path' => env('HELM_BINARY_PATH', '/usr/local/bin/helm'),
+    'process_timeout' => env('HELM_PROCESS_TIMEOUT', 3600),
 ];

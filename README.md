@@ -14,7 +14,7 @@ Installing can be done through a variety of methods, although Composer is recomm
 
 Include the following snipped into the *composer.json* file.
 
-```js
+```json
 "require": {
   "kytoonlabs/laravel-helm": "^1.0"
 }
@@ -22,7 +22,7 @@ Include the following snipped into the *composer.json* file.
 
 or by using the `composer require` command:
 
-```
+```php
 composer require kytoonlabs/laravel-helm
 ```
 
@@ -36,8 +36,15 @@ In order to use the Laravel Helm package, is required to setup the right path wh
 
 Laravel Helm uses the path `/usr/local/bin/helm` by default, but it can be configured using an environment variable defined into the `.env`
 
-```
+```dotenv
 HELM_BINARY_PATH=/path/to/helm/bynary
+```
+
+### Other configurations
+
+```dotenv
+# Set the internal `Process` timeout, default=3600
+HELM_PROCESS_TIMEOUT=3600
 ```
 
 ## How to use
@@ -52,6 +59,7 @@ The current version of the package implements the following commands:
 Also implements a method `rawCommand` where any other command can be executed.
 
 ### Helm::version
+
 ```php
 use Kytoonlabs\LaravelHelm\Helm;
 ...
@@ -63,11 +71,14 @@ $version = $helm->getOutput();
 ```
 
 ### Helm::install($name, $chart, $options, $envs)
+
 Parameters:
+
 - name: installation name (**required**)
 - chart: helm chart (**required**)
 - options: options array (**optional**)
 - envs: environment variables array (**optional**)
+
 ```php
 use Kytoonlabs\LaravelHelm\Helm;
 ...
@@ -88,11 +99,14 @@ if ($helm->isSuccessful()) {
 ```
 
 ### Helm::upgrade($name, $chart, $options, $envs)
+
 Parameters:
+
 - name: installation name (**required**)
 - chart: helm chart (**required**)
 - options: options array (**optional**)
 - envs: environment variables array (**optional**)
+
 ```php
 use Kytoonlabs\LaravelHelm\Helm;
 ...
@@ -114,10 +128,13 @@ if ($helm->isSuccessful()) {
 ```
 
 ### Helm::delete($name, $options, $envs)
+
 Parameters:
+
 - name: installation name (**required**)
 - options: options array (**optional**)
 - envs: environment variables array (**optional**)
+
 ```php
 use Kytoonlabs\LaravelHelm\Helm;
 ...
@@ -132,10 +149,13 @@ if ($helm->isSuccessful()) {
 ```
 
 ### Helm::rawCommand($command, $options, $envs)
+
 Parameters:
+
 - command: string command to be executed (**required**)
 - options: options array (**optional**)
 - envs: environment variables array (**optional**)
+
 ```php
 use Kytoonlabs\LaravelHelm\Helm;
 ...

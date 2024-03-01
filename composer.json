@@ -1,7 +1,7 @@
 {
     "name": "kytoonlabs/laravel-helm",
     "description": "Laravel wrapper for HELM v3",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "type": "library",
     "require": {
         "illuminate/support": "*",
